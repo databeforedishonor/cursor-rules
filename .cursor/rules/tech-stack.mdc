@@ -19,19 +19,18 @@ alwaysApply: true
 - shadcn/ui component library
 
 ### State Management
-- Zustand for client state management
-- TanStack Query for server state management
+- TanStack Query for state management
 
 ### UI Enhancement
 - Framer Motion for animations
 - TanStack Table for data tables
 
 ### Form Management
-- React Hook Form for form handling
-- Zod for validation
+- Tanstack Form for form handling
 
 ### Backend & Infrastructure
-- Supabase for database and authentication
+- Turso for database 
+- Drizzle ORM 
 - Vercel for hosting and deployment
 
 ### Testing
@@ -47,7 +46,6 @@ alwaysApply: true
 ### Next.js Integration
 - Use App Router directory structure
 - Implement proper server/client component patterns
-- Use Next.js built-in optimizations (Image, Font, etc.)
 - Follow Next.js routing conventions
 
 ### Styling Integration
@@ -58,12 +56,12 @@ alwaysApply: true
 
 ### State Management Integration
 - Use Zustand for UI state only
-- Implement TanStack Query for all API calls
+- Implement TanStack Query for all state management calls
 - Create custom hooks for data access patterns
 - Keep state granular and focused
 
 ### Form Integration
-- Use React Hook Form with shadcn form components
+- Use Tanstack Form with shadcn form components
 - Create Zod schemas for all form validations
 - Implement reusable form patterns
 - Handle form submission with proper loading/error states
@@ -81,7 +79,7 @@ alwaysApply: true
 - Implement proper test isolation
 
 ### Database Integration
-- Use Supabase for relational database needs
+- Use Turso and Drizzle ORM for relational database needs
 - Implement Row Level Security for all tables
 - Create type-safe database clients
 - Use Zod to validate database responses

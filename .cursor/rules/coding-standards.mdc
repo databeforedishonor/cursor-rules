@@ -58,8 +58,7 @@ alwaysApply: true
 - Follow the rules of hooks
 - Use the appropriate hooks for specific use cases
 - Extract complex hook logic to custom hooks
-- Add proper dependency arrays to useEffect and useMemo
-- Keep useEffect focused on related side effects
+- Avoid useEffect and use Tanstack Query
 
 ## Next.js
 

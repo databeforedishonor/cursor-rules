@@ -37,7 +37,6 @@ app/
 │   ├── register/      # Register route
 │   └── layout.tsx     # Auth layout
 ├── (dashboard)/       # Dashboard route group
-├── api/               # API routes
 ├── _components/       # App-wide components not shared outside app directory
 ├── _lib/              # App-specific utilities
 ├── globals.css        # Global CSS
@@ -102,23 +101,6 @@ lib/utils/
 ├── index.ts           # Re-export
 ├── date-utils.ts      # Date manipulation functions
 └── string-utils.ts    # String manipulation functions
-```
-
-## Supabase Integration
-
-### Database Types
-```
-types/supabase.ts      # Generated Supabase types
-```
-
-### Database Functions
-```
-lib/supabase/
-├── client.ts          # Supabase client setup
-├── auth.ts            # Authentication functions
-└── queries/           # Database query functions
-    ├── users.ts       # User-related database functions
-    └── products.ts    # Product-related database functions
 ```
 
 ## Testing Structure

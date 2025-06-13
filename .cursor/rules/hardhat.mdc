@@ -1,0 +1,112 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+# Hardhat Usage Rules (Context7)
+
+## Overview
+Hardhat is the standard tool for Ethereum-compatible smart contract development and testing in this codebase. For VeChain-specific workflows, integrate Hardhat with `vechain-sdk-js` for deployment, testing, and scripting. Follow these rules for consistent, maintainable, and secure smart contract workflows.
+
+## References
+- [Hardhat Context7 Docs](mdc:https:/context7.com/nomicfoundation/hardhat)
+- [VeChain SDK JS Rules](mdc:vechain-sdk-js.mdc)
+- [Project Structure](mdc:structure.mdc)
+- [Naming Conventions](mdc:naming.mdc)
+- [Coding Standards](mdc:coding-standards.mdc)
+
+## Key Principles
+- Use Hardhat for all EVM-compatible contract compilation, deployment, and testing
+- Use `vechain-sdk-js` for VeChain-specific deployment, simulation, and scripting
+- Always use TypeScript for scripts and tests
+- Co-locate contract, deployment, and test files by feature
+- Use environment variables for sensitive config (private keys, RPC URLs)
+
+## Project Structure
+- Place contracts in `contracts/`
+- Place Hardhat config in `hardhat.config.ts`
+- Place deployment scripts in `scripts/`
+- Place tests in `test/` or co-locate with contracts using `.test.ts` suffix
+- Place VeChain SDK utilities in `lib/vechain-sdk/`
+
+## Naming Conventions
+- Use PascalCase for contract files: `MyToken.sol`
+- Use camelCase for script and test files: `deployToken.ts`, `token.test.ts`
+- Use descriptive names for tasks and scripts
+- See [naming.mdc](mdc:naming.mdc) for more
+
+## Usage Patterns
+### Hardhat Tasks & Scripts
+- Define custom tasks in `hardhat.config.ts` or `tasks/`
+- Use TypeScript for all scripts
+- Example deployment script:
+```typescript
+import { ethers } from 'hardhat';
+
+async function main() {
+  const Token = await ethers.getContractFactory('MyToken');
+  const token = await Token.deploy();
+  await token.deployed();
+  console.log('Token deployed to:', token.address);
+}
+
+main().catch((error) => {
+  console.error(error);
+  process.exit(1);
+});
+```
+
+### VeChain SDK Integration
+- Use `vechain-sdk-js` for VeChain deployment and simulation
+- Example VeChain deployment:
+```typescript
+import { ThorClient, Transaction, Clause, Secp256k1 } from 'vechain-sdk-js';
+
+const thor = ThorClient.at(process.env.VECHAIN_RPC_URL!);
+const privateKey = process.env.PRIVATE_KEY!;
+
+async function deploy() {
+  // Build and sign transaction using vechain-sdk-js
+  // ...
+}
+```
+- Use Hardhat for contract compilation, then deploy bytecode with VeChain SDK
+
+### Testing
+- Use Hardhat's built-in test runner (Mocha/Chai) for EVM contracts
+- Use TypeScript for all tests
+- For VeChain, use `vechain-sdk-js` to simulate and test contract interactions
+- Example test:
+```typescript
+import { expect } from 'chai';
+import { ethers } from 'hardhat';
+
+describe('MyToken', function () {
+  it('should mint tokens', async function () {
+    const Token = await ethers.getContractFactory('MyToken');
+    const token = await Token.deploy();
+    await token.deployed();
+    // ...assertions
+  });
+});
+```
+
+## Best Practices
+- Always simulate and estimate gas before sending transactions (see [vechain-sdk-js.mdc](mdc:vechain-sdk-js.mdc))
+- Use fee delegation for VeChain dApps when possible
+- Validate all addresses and amounts before sending
+- Use environment variables for sensitive data
+- Document all scripts and tasks
+- Use try/catch for all async blockchain calls
+- Co-locate tests with contracts or scripts
+
+## Security
+- Never commit private keys or secrets to version control
+- Use `.env` files for configuration
+- Review contract code for vulnerabilities before deployment
+
+## Advanced
+- Use Hardhat plugins for coverage, gas reporting, and contract verification
+- Integrate with CI/CD for automated testing and deployment
+- For cross-chain workflows, maintain separate deployment scripts for EVM and VeChain
+
